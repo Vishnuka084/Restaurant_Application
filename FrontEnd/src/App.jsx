@@ -6,11 +6,15 @@ import NotFound from "../Pages/NotFound";
 import Success from "../Pages/Success";
 
 const App = () => {
-  return <Router>
-    <Route path="/" element={<Home/>} />
-    <Route path="/" element={<NotFound/>} />
-    <Route path="/" element={<Success/>} />
-  </Router>
+  return( 
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/success" element={<Success/>} />
+        <Route path="/*" element={<NotFound/>} />
+      </Routes>
+    </Router>
+  )
 }
 
-export default App
+export default App;
