@@ -1,6 +1,8 @@
 import express from "express";
-import { sendReservation } from "../controller/reservation.js"
-const router =  express.Router();
+import send_reservation from "../controller/reservation.js";
 
-router.post('./send',) 
+const router = express.Router();
+
+router.post("/send", send_reservation);
+
 export default router;

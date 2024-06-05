@@ -2,7 +2,7 @@ import exppress from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { dbConnection } from "./database/dbConnection.js";
-import { errorMiddleware } from "./error/error.js";
+import { errorMiddleware } from "./middlewares/error.js";
 import reservationRouter from "./routes/reservationRoute.js";
 
 
@@ -16,7 +16,7 @@ app.use(cors({
 }));
 app.use(exppress.json());
 app.use(exppress.urlencoded({ extended: true }));
-app.use('/api/v1/reservation', reservationRouter)
+app.use('/api/v1/reservation', reservationRouter);
 
 dbConnection();
 
