@@ -13,6 +13,7 @@ const App = () => {
         <Route path="/success" element={<Success/>} />
         <Route path="/*" element={<NotFound/>} />
       </Routes>
+      <Toaster />
     </Router>
   )
 }
