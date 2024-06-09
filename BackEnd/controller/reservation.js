@@ -41,3 +41,39 @@ export const get_all_reservations = async (req, res) => {
   }
 };
 
+
+// Function to updated a reservation 
+export const update_reservation = async (req, res, next) => {
+  const { id } = req.params;
+  const { firstName, lastName, email, date, time, phone } = req.body;
+
+  if( !firstName || !lastName || !email || !date || !time || !phone ) {
+    return next(new ErrorHandler("Please Fill Full Reservation Form !", 400));
+  }
+
+  try {
+    const reservation = await Reservation.findByIdAndUpdate(
+      id,
+      { firstName, lastName, email, date, time, phone },
+      { new: true, runValidators: true }
+    );
+
+    if( !reservation) {
+      return next( new ErrorHandler("Reservation not Found", 404))
+    }
+    res.status(200).json({
+      success: true,
+      message: "Reservation Updated Successsfully",
+      reservation,
+    });
+  } catch (error) {
+    if (error.name === 'ValidationError'){
+      const validationErrors = Object.values(error.errors).map(err => err.message);
+      return next(new ErrorHandler(validationErrors.join(', '), 400));
+    }
+
+    return next(error);
+  }
+
+};
+
