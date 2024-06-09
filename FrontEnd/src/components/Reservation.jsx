@@ -128,6 +128,7 @@ const Reservation = () => {
 
   const handleReservation = async (e) => {
     e.preventDefault();
+    console.log(" 0000000000000001")
 
     // Basic validation
     if (!firstName || !lastName || !email || !phone || !date || !time) {
@@ -135,9 +136,11 @@ const Reservation = () => {
       return;
     }
 
+    console.log(" 0000000000000002")
     try {
+      console.log(" 0000000000000003")
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/reservation/send",
+        "http://localhost:4000/api/v1/reservation",
         { firstName, lastName, email, phone, date, time },
         {
           headers: {
@@ -156,6 +159,7 @@ const Reservation = () => {
       setDate("");
       navigate("/success");
     } catch (error) {
+      console.log(" 0000000000000004")
       const errorMessage = error.response?.data?.message || "Something went wrong. Please try again.";
       toast.error(errorMessage);
     }
