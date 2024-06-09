@@ -1,5 +1,5 @@
 import express from "express";
-import { send_reservation,get_all_reservations }  from "../controller/reservation.js";
+import { send_reservation,get_all_reservations, update_reservation, delete_reservation }  from "../controller/reservation.js";
 
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router.post("/send", send_reservation);
 router.get("/list", get_all_reservations);
 
 // reservation Updated ----------->
+router.put("/update/:id", update_reservation);
 
+// reservation delete ----------->
+router.delete("/delete/:id" , delete_reservation);
 
 export default router;

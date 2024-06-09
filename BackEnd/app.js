@@ -58,6 +58,12 @@ dbConnection();
 // Error handling middleware
 app.use(errorMiddleware);
 
+
+app.use(cors({
+    origin: "*",
+    methods: "*",
+}));
+
 export default app;
 
 

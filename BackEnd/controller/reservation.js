@@ -19,7 +19,6 @@ export const send_reservation = async (req, res, next) => {
       const validationErrors = Object.values(error.errors).map(err => err.message);
       return next(new ErrorHandler(validationErrors.join(', '), 400));
     }
-
     return next(error);
   }
 };
@@ -42,13 +41,13 @@ export const get_all_reservations = async (req, res) => {
 };
 
 
-// Function to updated a reservation 
+// Function to update a reservation
 export const update_reservation = async (req, res, next) => {
   const { id } = req.params;
   const { firstName, lastName, email, date, time, phone } = req.body;
 
-  if( !firstName || !lastName || !email || !date || !time || !phone ) {
-    return next(new ErrorHandler("Please Fill Full Reservation Form !", 400));
+  if (!firstName || !lastName || !email || !date || !time || !phone) {
+    return next(new ErrorHandler("Please Fill Full Reservation Form!", 400));
   }
 
   try {
@@ -58,22 +57,42 @@ export const update_reservation = async (req, res, next) => {
       { new: true, runValidators: true }
     );
 
-    if( !reservation) {
-      return next( new ErrorHandler("Reservation not Found", 404))
+    if (!reservation) {
+      return next(new ErrorHandler("Reservation not found", 404));
     }
+
     res.status(200).json({
       success: true,
-      message: "Reservation Updated Successsfully",
+      message: "Reservation Updated Successfully!",
       reservation,
     });
   } catch (error) {
-    if (error.name === 'ValidationError'){
+    if (error.name === 'ValidationError') {
       const validationErrors = Object.values(error.errors).map(err => err.message);
       return next(new ErrorHandler(validationErrors.join(', '), 400));
     }
 
     return next(error);
   }
-
 };
 
+
+// Function to delete a reservation
+export const delete_reservation = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const reservation = await Reservation.findByIdAndDelete(id);
+
+    if (!reservation) {
+      return next(new ErrorHandler("Reservation not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Reservation Deleted Successfully!",
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
