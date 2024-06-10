@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import reservationRouter from "./routes/reservationRoute.js";
-//import adminRoutes from './routes/adminRoutes.js';
+import adminRouter from "./routes/adminRoute.js";
 
 const app = express();
 dotenv.config({ path: './config/config.env' });
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-//app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/reservation', reservationRouter);
 app.get("/", (req, res, next)=>{return res.status(200).json({
     success: true,

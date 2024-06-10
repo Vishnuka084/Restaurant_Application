@@ -5,8 +5,6 @@ import { send_reservation,get_all_reservations, update_reservation, delete_reser
 
 const router = express.Router();
 
-// Protect routes that require admin authentication
-//router.use(isAuthenticatedAdmin);
 
 // save reservation ------->
 router.post("/send", send_reservation);
